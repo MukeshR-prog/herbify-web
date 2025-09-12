@@ -1,8 +1,20 @@
+"use client";
 import React, { useState } from "react";
-import { Menu, X, Leaf, Play, Download, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import {
+  Menu,
+  X,
+  Leaf,
+  Play,
+  Download,
+  ArrowRight,
+} from "lucide-react";
+import useAuthStore from "@/store/useAuthStore";
+import { logout } from "@/lib/auth";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const role = useAuthStore((state) => state.role);
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
@@ -52,13 +64,33 @@ export function Navbar() {
               >
                 Contact
               </a>
+              {/* Conditional rendering based on role */}
+              {role && (
+                <Link
+                  href={`/${role}`}
+                  className="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                >
+                  Dashboard
+                </Link>
+              )}
             </div>
           </div>
 
           <div className="hidden md:block">
-            <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-              Try Demo
-            </button>
+            {role ? (
+              <button
+                onClick={logout}
+                className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login">
+                <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                  Try Demo
+                </button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -110,9 +142,28 @@ export function Navbar() {
               >
                 Contact
               </a>
-              <button className="w-full text-left bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                Try Demo
-              </button>
+              {role ? (
+                <>
+                  <Link
+                    href={`/${role}`}
+                    className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="w-full text-left bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link href="/login">
+                  <button className="w-full text-left bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                    Try Demo
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         )}
