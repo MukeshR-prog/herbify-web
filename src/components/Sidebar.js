@@ -7,7 +7,8 @@ const sidebarContent = {
     { label: "Dashboard", href: "/collector" },
     { label: "Add Stock", href: "/collector/add-stock" },
     { label: "Existing Stock", href: "/collector/existing-stock" },
-    { label: "Pending Requests", href: "/collector/pending-requests" },
+    { label: "Pending Requests", href: "/collector/farmer-request" },
+    { label: "ML Analysis", href: "/collector/ml-analysis" },
     { label: "Transactions", href: "/collector/transactions" },
   ],
   [ROLES.CONSUMER]: [

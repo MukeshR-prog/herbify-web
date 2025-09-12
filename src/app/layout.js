@@ -21,10 +21,7 @@ export default function RootLayout({ children }) {
 
   // ✅ Sidebar only on role dashboards, not on `/` or `/login`
   const showSidebar =
-    role &&
-    pathname &&
-    pathname !== "/" &&
-    !pathname.startsWith("/login");
+    pathname == "/" || pathname =="/login";
 
   return (
     <html lang="en">
@@ -32,7 +29,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Navbar />
           <div className="flex h-[calc(100vh-64px)]">{/* 64px for navbar height */}
-            {showSidebar && <Sidebar role={role} />}
+            {!showSidebar && <Sidebar role={role} />}
             <main className="p-4 flex-1 overflow-y-auto max-h-[calc(100vh-64px)]">
               {children}
             </main>
