@@ -30,6 +30,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useState } from "react";
+import { Navbar } from "@/components/Navbar";
 
 // Reusable Components
 const ChallengeCard = ({
@@ -166,6 +167,7 @@ export default function HerBChainLanding() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* <Navbar /> */}
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,14 +175,14 @@ export default function HerBChainLanding() {
           <div className="mb-8">
             <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
               <CheckCircle className="w-4 h-4 mr-2" />
-              Government Approved • SIH 2024
+                Government Approved • SIH 2025
             </span>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-8">
-                <span className="text-green-500">HerBChain</span> –<br />
+                <span className="text-green-500 ">HerBify</span> -<br />
                 <span className="text-gray-900">Trust, Quality &</span>
                 <br />
                 <span className="text-blue-500">Traceability</span>{" "}
@@ -527,54 +529,6 @@ export default function HerBChainLanding() {
         </div>
       </section>
 
-      {/* Transforming Lives */}
-      <section id="impact" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Transforming Lives Across the Value Chain
-            </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              HerBChain creates positive impact for every stakeholder in the
-              herbal medicine ecosystem, from farmers to consumers.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8 mb-12">
-            <TransformCard
-              icon={Users}
-              title="Empowered Farmers"
-              description="Direct access to premium markets, fair pricing, and reduced middleman dependency. Farmers earn 40% more income through verified quality certification."
-              bgColor="bg-gradient-to-br from-green-400 to-green-500"
-              metrics={[
-                { value: "40%", label: "Income Increase" },
-                { value: "10K+", label: "Farmers Onboarded" },
-              ]}
-            />
-            <TransformCard
-              icon={TrendingUp}
-              title="Confident Exporters"
-              description="Dramatically reduced rejection rates at international borders through verified quality documentation and compliance certificates."
-              bgColor="bg-gradient-to-br from-blue-400 to-purple-500"
-              metrics={[
-                { value: "85%", label: "Rejection Reduction" },
-                { value: "₹500Cr", label: "Export Value Added" },
-              ]}
-            />
-            <TransformCard
-              icon={Shield}
-              title="Trusted Consumers"
-              description="Complete transparency about herb origin, quality, and authenticity. Consumers can verify every product before purchase for guaranteed purity."
-              bgColor="bg-gradient-to-br from-cyan-400 to-blue-500"
-              metrics={[
-                { value: "99%", label: "Trust Score" },
-                { value: "1M+", label: "QR Scans Daily" },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Complete Traceability Workflow */}
       <section id="workflow" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -590,7 +544,7 @@ export default function HerBChainLanding() {
 
           {/* Workflow Steps */}
           <div className="bg-white rounded-3xl p-8 mb-12 shadow-sm">
-            <div className="grid md:grid-cols-5 gap-8 items-center">
+            <div className="flex flex-nowrap justify-between gap-8 items-center overflow-x-auto">
               <WorkflowStep
                 icon={Leaf}
                 title="Farmer"
@@ -599,7 +553,7 @@ export default function HerBChainLanding() {
                 bgColor="bg-green-100"
                 step="1"
               />
-              <div className="hidden md:flex justify-center">
+              <div className="flex-shrink-0">
                 <ArrowRight className="w-6 h-6 text-gray-400" />
               </div>
               <WorkflowStep
@@ -610,7 +564,7 @@ export default function HerBChainLanding() {
                 bgColor="bg-blue-100"
                 step="2"
               />
-              <div className="hidden md:flex justify-center">
+              <div className="flex-shrink-0">
                 <ArrowRight className="w-6 h-6 text-gray-400" />
               </div>
               <WorkflowStep
@@ -621,7 +575,7 @@ export default function HerBChainLanding() {
                 bgColor="bg-purple-100"
                 step="3"
               />
-              <div className="hidden md:flex justify-center">
+              <div className="flex-shrink-0">
                 <ArrowRight className="w-6 h-6 text-gray-400" />
               </div>
               <WorkflowStep
@@ -632,7 +586,7 @@ export default function HerBChainLanding() {
                 bgColor="bg-orange-100"
                 step="4"
               />
-              <div className="hidden md:flex justify-center">
+              <div className="flex-shrink-0">
                 <ArrowRight className="w-6 h-6 text-gray-400" />
               </div>
               <WorkflowStep
@@ -674,75 +628,6 @@ export default function HerBChainLanding() {
         </div>
       </section>
 
-      {/* Advanced Technology Stack */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Advanced Technology Stack
-            </h2>
-            <p className="text-xl text-gray-300">
-              Built on cutting-edge technologies to ensure scalability,
-              security, and reliability.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
-            <TechCard
-              icon={Shield}
-              title="Blockchain"
-              description="Ethereum-based smart contracts ensure data immutability"
-              color="bg-blue-600"
-            />
-            <TechCard
-              icon={Brain}
-              title="AI/ML"
-              description="TensorFlow models for quality assessment and fraud detection"
-              color="bg-green-600"
-            />
-            <TechCard
-              icon={Cloud}
-              title="Cloud"
-              description="AWS infrastructure for scalable and secure operations"
-              color="bg-yellow-600"
-            />
-            <TechCard
-              icon={Phone}
-              title="Mobile"
-              description="Cross-platform apps built with React Native"
-              color="bg-purple-600"
-            />
-          </div>
-
-          {/* Expanding Beyond Medicinal Herbs */}
-          <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-3xl p-12 text-center">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              Expanding Beyond Medicinal Herbs
-            </h3>
-            <p className="text-xl text-white mb-8 opacity-90">
-              Our platform is designed to scale across multiple agricultural
-              sectors, ensuring transparency and quality everywhere.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="bg-white/20 text-gray-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/80 hover:text-black hover:scale-105 hover:shadow-lg cursor-pointer">
-                🌿 Ayurveda
-              </span>
-              <span className="bg-white/20 text-gray-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/80 hover:text-black hover:scale-105 hover:shadow-lg cursor-pointer">
-                🌶️ Spices
-              </span>
-              <span className="bg-white/20 text-gray-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/80 hover:text-black hover:scale-105 hover:shadow-lg cursor-pointer">
-                🥗 Organic Food
-              </span>
-              <span className="bg-white/20 text-gray-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/80 hover:text-black hover:scale-105 hover:shadow-lg cursor-pointer">
-                ☕ Coffee & Tea
-              </span>
-              <span className="bg-white/20 text-gray-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/80 hover:text-black hover:scale-105 hover:shadow-lg cursor-pointer">
-                🌾 Hemp Products
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* What Our Users Say */}
       <section className="py-20 bg-white">
@@ -780,48 +665,8 @@ export default function HerBChainLanding() {
         </div>
       </section>
 
-      {/* Ready to Transform */}
-      <section
-        id="contact"
-        className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50"
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Ready to Transform Your Herbal Business?
-          </h2>
-          <p className="text-xl text-gray-600 mb-10">
-            Join thousands of farmers, exporters, and consumers who trust
-            HerBChain for authentic, traceable, and quality-assured herbal
-            medicines.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button className="bg-blue-500 text-white px-8 py-4 rounded-xl hover:bg-blue-600 transition-colors text-lg font-semibold flex items-center justify-center">
-              <Star className="w-5 h-5 mr-2" />
-              Start Free Trial
-            </button>
-            <button className="border-2 border-green-500 text-green-600 px-8 py-4 rounded-xl hover:bg-green-50 transition-colors text-lg font-semibold">
-              Schedule Demo
-            </button>
-          </div>
-          <div className="flex items-center justify-center space-x-6 text-sm text-gray-500">
-            <span className="flex items-center">
-              <CheckCircle className="w-4 h-4 mr-1" />
-              Government approved
-            </span>
-            <span className="flex items-center">
-              <CheckCircle className="w-4 h-4 mr-1" />
-              SIH 2024 Winner
-            </span>
-            <span className="flex items-center">
-              <CheckCircle className="w-4 h-4 mr-1" />
-              ISO 27001 Certified
-            </span>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer id="contact" className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
@@ -948,12 +793,12 @@ export default function HerBChainLanding() {
 
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 mb-4 md:mb-0">
-              © 2024 HerBChain. All rights reserved.
+              © 2025 HerBChain. All rights reserved.
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-400">Powered by</span>
               <span className="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                SIH 2024
+                SIH 2025
               </span>
               <span className="flex items-center text-sm text-gray-400">
                 <CheckCircle className="w-4 h-4 mr-1" />
