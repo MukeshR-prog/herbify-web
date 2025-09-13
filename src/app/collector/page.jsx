@@ -1,7 +1,7 @@
 "use client";
 import HerbsDataTable from "@/components/HerbsDataTable";
 import { RoleGuard } from "@/components/RoleGuard";
-import StatsCard from "@/components/StatsCard";
+import StatsCard from "@/components/cards/StatsCard";
 import { ROLES } from "@/utils/roles";
 
 export default function CollectorDashboard() {

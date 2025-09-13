@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
+import { LandingNavbar } from "@/components/navbars/LandingNavbar";
+import { DashboardNavbar } from "@/components/navbars/DashboardNavbar";
 import { Sidebar } from "@/components/Sidebar";
 import { Providers } from "./providers";
 import { useEffect, useState } from "react";
@@ -8,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
   const [role, setRole] = useState(null);
-  const pathname = usePathname(); // ✅ correct usage of the hook
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -19,18 +20,25 @@ export default function RootLayout({ children }) {
     }
   }, []);
 
-  // ✅ Sidebar only on role dashboards, not on `/` or `/login`
-  const showSidebar =
-    pathname == "/" || pathname =="/login";
+  const isLandingPage = pathname === "/";
+  const isLoginPage = pathname === "/login";
+
+  const showSidebar = role && !isLandingPage && !isLoginPage;
 
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50">
+      <body className="min-h-screen bg-gray-800">
         <Providers>
-          <Navbar />
-          <div className="flex h-[calc(100vh-64px)]">{/* 64px for navbar height */}
-            {!showSidebar && <Sidebar role={role} />}
-            <main className="p-4 flex-1 overflow-y-auto max-h-[calc(100vh-64px)]">
+          {/* Navbar */}
+          {isLandingPage ? <LandingNavbar /> : <DashboardNavbar />}
+
+          {/* Layout */}
+          <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+            {/* Sidebar */}
+            {showSidebar && <Sidebar role={role} />}
+
+            {/* Main Content */}
+            <main className="flex-1 h-full overflow-y-auto scrollbar-hide p-4">
               {children}
             </main>
           </div>

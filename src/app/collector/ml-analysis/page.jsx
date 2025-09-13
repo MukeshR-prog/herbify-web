@@ -1,10 +1,10 @@
 "use client";
-import CriticalAlertCard from "@/components/CriticalAlertCard";
-import MetricCard from "@/components/MetricCard";
-import BatchStatusCard from "@/components/BatchStatusCard";
-import EnvironmentCard from "@/components/EnvironmentCard";
-import MarketCard from "@/components/MarketCard";
-import SuggestionCard from "@/components/SuggestionCard";
+import CriticalAlertCard from "@/components/cards/CriticalAlertCard";
+import MetricCard from "@/components/cards/MetricCard";
+import BatchStatusCard from "@/components/cards/BatchStatusCard";
+import EnvironmentCard from "@/components/cards/EnvironmentCard";
+import MarketCard from "@/components/cards/MarketCard";
+import SuggestionCard from "@/components/cards/SuggestionCard";
 import { FaBoxOpen, FaRecycle } from "react-icons/fa6";
 import { FaCalendarAlt, FaExclamationTriangle } from "react-icons/fa";
 

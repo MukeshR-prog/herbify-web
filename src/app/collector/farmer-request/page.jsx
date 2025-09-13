@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button, Chip } from "@heroui/react";
-import FarmerRequestCard from "@/components/FarmerRequestCard";
+import FarmerRequestCard from "@/components/cards/FarmerRequestCard";
 
 const initialRequests = [
   {
