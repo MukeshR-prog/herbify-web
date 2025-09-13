@@ -1,25 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  Menu,
-  X,
-  Leaf,
-  Play,
-  Download,
-  ArrowRight,
-} from "lucide-react";
-import useAuthStore from "@/store/useAuthStore";
-import { logout } from "@/lib/auth";
+import { Menu, X, Leaf } from "lucide-react";
 
-export function Navbar() {
+export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const role = useAuthStore((state) => state.role);
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
@@ -31,7 +22,7 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu - Landing Page Links */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <a
@@ -64,33 +55,16 @@ export function Navbar() {
               >
                 Contact
               </a>
-              {/* Conditional rendering based on role */}
-              {role && (
-                <Link
-                  href={`/${role}`}
-                  className="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-              )}
             </div>
           </div>
 
+          {/* Desktop CTA */}
           <div className="hidden md:block">
-            {role ? (
-              <button
-                onClick={logout}
-                className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
-              >
-                Logout
+            <Link href="/login">
+              <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                Try Demo
               </button>
-            ) : (
-              <Link href="/login">
-                <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                  Try Demo
-                </button>
-              </Link>
-            )}
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -108,62 +82,50 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Landing Page Links */}
         {mobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
               <a
                 href="#about"
                 className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 About
               </a>
               <a
                 href="#features"
                 className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Features
               </a>
               <a
                 href="#impact"
                 className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Impact
               </a>
               <a
                 href="#workflow"
                 className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 How It Works
               </a>
               <a
                 href="#contact"
                 className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
               </a>
-              {role ? (
-                <>
-                  <Link
-                    href={`/${role}`}
-                    className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium"
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={logout}
-                    className="w-full text-left bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <Link href="/login">
-                  <button className="w-full text-left bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                    Try Demo
-                  </button>
-                </Link>
-              )}
+              <Link href="/login">
+                <button className="w-full text-left bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium mt-2">
+                  Try Demo
+                </button>
+              </Link>
             </div>
           </div>
         )}
