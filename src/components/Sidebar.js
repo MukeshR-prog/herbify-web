@@ -60,11 +60,11 @@ const sidebarContent = {
     { label: "Sales", href: "/farmer/sales" },
   ],
   [ROLES.CONSUMER]: [
-    { label: "Dashboard", href: "/manufacturer" },
-    { label: "Journey Tracker", href: "/manufacturer/production" },
-    { label: "Lab Reports", href: "/manufacturer/inventory" },
-    { label: "Analytics", href: "/manufacturer/analytics" },
-    { label: "Sustainability", href: "/manufacturer/sustainability" },
+    { label: "Dashboard", href: "/consumer" },
+    { label: "Journey Tracker", href: "/consumer/journey-tracker" },
+    { label: "Lab Reports", href: "/consumer/lab-reports" },
+    { label: "Analytics", href: "/consumer/analytics" },
+    { label: "Sustainability", href: "/consumer/sustainability" },
   ],
 };
 
