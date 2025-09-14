@@ -21,9 +21,8 @@ const scrollToSection = (id) => {
   }
 };
 
-export function Navbar() {
+export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const role = useAuthStore((state) => state.role);
 
   const handleLinkClick = (e, id) => {
     e.preventDefault();
@@ -36,6 +35,7 @@ export function Navbar() {
     <nav className="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300 opacity-96">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2 animate-wobble">
               <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
@@ -47,7 +47,7 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu - Landing Page Links */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
               <a
@@ -78,32 +78,33 @@ export function Navbar() {
               >
                 Contact
               </a>
-              {role && (
-                <Link
-                  href={`/${role}`}
+            
+                <div
+                  // href={`/${role}`}
                   className="text-gray-600 hover:text-blue-600 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all after:duration-300 px-3 py-2 text-sm font-medium"
                 >
                   Dashboard
-                </Link>
-              )}
+                </div>
+             
             </div>
           </div>
 
+          {/* Desktop CTA */}
           <div className="hidden md:block">
-            {role ? (
+             
               <button
                 onClick={logout}
                 className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-all duration-300 font-medium transform hover:scale-105"
               >
                 Logout
               </button>
-            ) : (
+            
               <Link href="/login" className="transform hover:scale-105 transition-transform duration-300">
                 <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors font-medium">
                   Try Demo
                 </button>
               </Link>
-            )}
+            
           </div>
 
           {/* Mobile menu button */}
@@ -156,14 +157,14 @@ export function Navbar() {
             >
               Contact
             </a>
-            {role ? (
+          
               <>
-                <Link
-                  href={`/${role}`}
+                <button
+                  // href={`/${role}`}
                   className="block text-gray-600 hover:text-blue-600 px-3 py-2 text-base font-medium transition-colors duration-300"
                 >
                   Dashboard
-                </Link>
+                </button>
                 <button
                   onClick={logout}
                   className="w-full text-left bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
@@ -171,13 +172,13 @@ export function Navbar() {
                   Logout
                 </button>
               </>
-            ) : (
+          \
               <Link href="/login">
                 <button className="w-full text-left bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
                   Try Demo
                 </button>
               </Link>
-            )}
+          
           </div>
         </div>
       </div>

@@ -30,7 +30,6 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useState } from "react";
-import { Navbar } from "@/components/Navbar";
 
 // Reusable Components
 const ChallengeCard = ({
@@ -87,7 +86,7 @@ const TestimonialCard = ({ name, role, location, quote, avatar }) => (
         <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
       ))}
     </div>
-    <p className="text-gray-700 mb-6 leading-relaxed">"{quote}"</p>
+    <p className="text-gray-700 mb-6 leading-relaxed">{quote}</p>
     <div className="flex items-center">
       <div className="w-12 h-12 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
         <span className="text-lg font-semibold text-gray-600">
