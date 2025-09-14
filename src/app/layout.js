@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             {showSidebar && <Sidebar role={role} />}
 
             {/* Main Content */}
-            <main className="flex-1 h-full overflow-y-auto scrollbar-hide p-4">
+            <main className="flex-1 h-full overflow-y-auto scrollbar-hide">
               {children}
             </main>
           </div>
