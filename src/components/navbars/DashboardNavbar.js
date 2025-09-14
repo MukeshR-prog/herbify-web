@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from 'next/navigation'; 
+import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, Leaf } from "lucide-react";
 import useAuthStore from "@/store/useAuthStore";
 import { logout } from "@/lib/auth";
@@ -74,11 +75,11 @@ export function DashboardNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const role = useAuthStore((state) => state.role);
   const router = useRouter();
-  
+
   const handleLogout = () => {
-    logout();
     router.push("/");
-  }
+    logout();
+  };
 
   return (
     <>
@@ -86,15 +87,14 @@ export function DashboardNavbar() {
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
-                  <Leaf className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-gray-900">
-                  HerBChain
-                </span>
-              </div>
+            <div className="flex gap-2 h-12.5">
+              <img src="/logo.png" alt="Herbify Logo" width={50} />
+              <img
+                src="/name.png"
+                className="mt-[-12px]"
+                alt="Herbify Logo"
+                width={140}
+              />
             </div>
 
             {/* Desktop - Just logout button */}
@@ -126,7 +126,10 @@ export function DashboardNavbar() {
 
       {/* Mobile Drawer Menu - Shows Sidebar Links */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}>
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50"
+          onClick={() => setMobileMenuOpen(false)}
+        >
           <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex items-center space-x-2">
@@ -144,12 +147,15 @@ export function DashboardNavbar() {
                 <X className="w-6 h-6" />
               </button>
             </div>
-            
+
             {/* Mobile Sidebar Content */}
             <div className="flex-1 overflow-y-auto">
-              <MobileSidebar role={role} onLinkClick={() => setMobileMenuOpen(false)} />
+              <MobileSidebar
+                role={role}
+                onLinkClick={() => setMobileMenuOpen(false)}
+              />
             </div>
-            
+
             {/* Mobile Logout */}
             <div className="p-4 border-t">
               <button

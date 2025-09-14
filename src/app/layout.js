@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-800">
+      <body className="min-h-screen `bg`-gray-800">
         <Providers>
           {/* Navbar */}
           {isLandingPage ? <LandingNavbar /> : <DashboardNavbar />}
