@@ -50,9 +50,9 @@ const sidebarContent = {
     { label: "Transactions", href: "/collector/transactions" },
   ],
   [ROLES.MANUFACTURER]: [
-    { label: "Consumer Dashboard", href: "/consumer" },
-    { label: "Shop", href: "/consumer/shop" },
-    { label: "Orders", href: "/consumer/orders" },
+    { label: "Consumer Dashboard", href: "/manufacturer" },
+    { label: "Shop", href: "/manufacturer/shop" },
+    { label: "Orders", href: "/manufacturer/orders" },
   ],
   [ROLES.FARMER]: [
     { label: "Farmer Dashboard", href: "/farmer" },
@@ -76,7 +76,11 @@ export function Sidebar({ role }) {
   return (
     <aside className="hidden md:flex w-60 min-h-screen bg-white border-r shadow-sm p-4 flex-col gap-3">
       {sidebarContent[role].map((item) => {
-        const isActive = pathname === item.href;
+        const isBaseRoute = item.href === `/${role.toLowerCase()}`;
+
+        const isActive = isBaseRoute
+          ? pathname === item.href
+          : pathname === item.href || pathname.startsWith(item.href + "/");
         return (
           <Link
             key={item.href}
