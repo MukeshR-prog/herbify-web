@@ -18,6 +18,10 @@ import {
   BarChart3,
   Leaf,
   ShieldCheck,
+  PackagePlus,
+  Truck,
+  Box,
+  ClipboardList,
 } from "lucide-react";
 
 const icons = {
@@ -38,6 +42,10 @@ const icons = {
   Analytics: <BarChart3 size={18} />,
   Sustainability: <Leaf size={18} />,
   "Quality Tracking": <ShieldCheck size={18} />,
+  "Incoming Stock": <PackagePlus size={18} />,
+  "Under Processing": <Factory size={18} />,
+  "Products to Dispatch": <Box size={18} />,
+  "Products Dispatched": <Truck size={18} />,
 };
 
 const sidebarContent = {
@@ -50,9 +58,13 @@ const sidebarContent = {
     { label: "Transactions", href: "/collector/transactions" },
   ],
   [ROLES.MANUFACTURER]: [
-    { label: "Consumer Dashboard", href: "/consumer" },
-    { label: "Shop", href: "/consumer/shop" },
-    { label: "Orders", href: "/consumer/orders" },
+    { label: "Dashboard", href: "/manufacturer" },
+    { label: "Incoming Stock", href: "/manufacturer/incoming-stock" },
+    { label: "Existing Stock", href: "/manufacturer/existing-stock" },
+    { label: "Under Processing", href: "/manufacturer/processing" },
+    { label: "Products to Dispatch", href: "/manufacturer/pending-dispatch" },
+    { label: "Products Dispatched", href: "/manufacturer/dispatched" },
+    { label: "Orders", href: "/manufacturer/orders" },
   ],
   [ROLES.FARMER]: [
     { label: "Farmer Dashboard", href: "/farmer" },
@@ -74,25 +86,39 @@ export function Sidebar({ role }) {
   if (!role || !sidebarContent[role]) return null;
 
   return (
-    <aside className="hidden md:flex w-60 min-h-screen bg-white border-r shadow-sm p-4 flex-col gap-3">
-      {sidebarContent[role].map((item) => {
-        const isActive = pathname === item.href;
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition
-              ${
-                isActive
-                  ? "bg-green-100 text-green-700"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-              }`}
-          >
-            <span className="text-gray-500">{icons[item.label]}</span>
-            {item.label}
-          </Link>
-        );
-      })}
+    <aside className="hidden md:flex w-60 min-h-screen bg-gray-50 border-r border-gray-200 p-4 flex-col gap-2">
+      <div className="flex-1 space-y-2 py-4">
+        {sidebarContent[role].map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-200
+                ${
+                  isActive
+                    ? "bg-emerald-500 text-white shadow-md"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+            >
+              <span
+                className={`transition-all duration-200 ${
+                  isActive ? "text-white" : "text-gray-400 group-hover:text-emerald-500"
+                }`}
+              >
+                {icons[item.label]}
+              </span>
+              <span
+                className={`transition-all duration-200 ${
+                  isActive ? "" : "group-hover:text-gray-900"
+                }`}
+              >
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
     </aside>
   );
 }

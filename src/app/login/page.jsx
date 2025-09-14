@@ -22,8 +22,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl shadow max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Login as</h2>
+    <div className="p-6 bg-white text-gray-900 rounded-xl shadow max-w-md mx-auto min-h-screen">
+  <h2 className="text-2xl font-bold mb-4 text-black">Login as</h2>
       <div className="grid gap-3">
         {Object.values(ROLES).map((r) => (
           <button

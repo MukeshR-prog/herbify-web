@@ -86,12 +86,12 @@ const FarmerRequestsPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white text-black min-h-screen" style={{ backgroundColor: '#fff', color: '#000' }}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-800">Pending Farmer Requests</h2>
-          <p className="text-sm text-gray-500">
+          <h2 className="text-xl font-bold text-black">Pending Farmer Requests</h2>
+          <p className="text-sm text-black">
             Review and approve stock collection requests from farmers
           </p>
         </div>
