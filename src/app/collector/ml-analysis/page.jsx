@@ -18,15 +18,15 @@ export default function MLPredictionsPage() {
     { time: "6h", val: 27 },
   ];
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 bg-white text-black min-h-screen" style={{ backgroundColor: '#fff', color: '#000' }}>
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold">Quality Tracking & ML Predictions</h2>
+        <h2 className="text-xl font-bold text-black">Quality Tracking & ML Predictions</h2>
         <span className="text-green-600 text-sm font-medium">
           ● AI Model Active
         </span>
       </div>
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-black">
         AI-powered quality analysis and spoilage predictions
       </p>
 

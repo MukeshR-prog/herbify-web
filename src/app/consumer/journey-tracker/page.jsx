@@ -241,7 +241,7 @@ const EnhancedJourneyTimeline = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
+    <div className="max-w-4xl mx-auto p-6 bg-white text-gray-900 min-h-screen">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">

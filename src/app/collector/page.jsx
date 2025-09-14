@@ -155,10 +155,12 @@ export default function CollectorDashboard() {
 
   return (
     <RoleGuard allowed={[ROLES.COLLECTOR]}>
-      <h2 className="text-2xl font-bold mb-4">🚚 Collector Dashboard</h2>
-      <p>Scan packages, verify authenticity, transfer custody.</p>
-    <StatsCard stats={statsData} />
-    <HerbsDataTable data={inventoryData} />
+  <div className="bg-white text-black min-h-screen p-4" style={{ backgroundColor: '#fff', color: '#000' }}>
+  <h2 className="text-2xl font-bold mb-4 text-black">🚚 Collector Dashboard</h2>
+  <p className="text-black">Scan packages, verify authenticity, transfer custody.</p>
+  <StatsCard stats={statsData} />
+  <HerbsDataTable data={inventoryData} />
+      </div>
     </RoleGuard>
   );
 }
