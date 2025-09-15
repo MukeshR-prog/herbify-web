@@ -504,13 +504,13 @@ export default function CollectorDashboard() {
         className="bg-white text-black min-h-screen p-4"
         style={{ backgroundColor: "#fff", color: "#000" }}
       >
-        <div className="p-6 flex justify-between items-start">
+        <div className="p-3 mt-[-10px] flex justify-between items-start">
           {/* Left Side - Heading & Subtext */}
           <div>
-            <h2 className="text-4xl font-bold mb-4 text-black">
-              🚚 Collector Dashboard
+            <h2 className="text-2xl font-bold mb-4 text-black">
+              Collector Dashboard
             </h2>
-            <p className="text-black mb-6 text-xl">
+            <p className="text-black mb-6 text-md">
               Scan packages, verify authenticity, transfer custody.
             </p>
           </div>
