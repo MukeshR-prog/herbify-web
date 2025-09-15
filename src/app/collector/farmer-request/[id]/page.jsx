@@ -223,9 +223,9 @@ const FarmerRequestDetailsPage = () => {
 
     images: {
       field:
-        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=500&fit=crop",
+        "https://etimg.etb2bimg.com/photo/84335031.cms",
       harvested:
-        "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=500&fit=crop",
+        "https://media.istockphoto.com/id/511574907/photo/gardener-gathers-rosemary-herb.jpg?s=612x612&w=0&k=20&c=v1E-KFayRn2FLYiflR8n7Z-XpD1N9tFG54EsAnuttJI=",
       packed:
         "https://static.theprint.in/wp-content/uploads/2023/09/farmer-Parwar-696x392.jpg?compress=true&quality=80&w=376&dpr=2.6",
       processed:

@@ -31,7 +31,8 @@ import {
   Package,
   User,
   DollarSign,
-  Truck
+  Truck,
+  HandCoins
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -243,7 +244,7 @@ const FarmerRequestsPage = () => {
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-slate-500" />
+                    <HandCoins className="w-4 h-4 text-slate-500" />
                     <div>
                       <p className="text-xs text-slate-500">Value</p>
                       <p className="font-semibold text-slate-700">
