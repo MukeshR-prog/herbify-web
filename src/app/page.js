@@ -30,6 +30,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useState } from "react";
+import { LandingNavbar } from "../components/navbars/LandingNavbar";
 
 // Reusable Components
 const ChallengeCard = ({
@@ -166,7 +167,7 @@ export default function HerBChainLanding() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* <Navbar /> */}
+      <LandingNavbar />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
