@@ -4,17 +4,18 @@ import { LuClock } from "react-icons/lu";
 import { CiBoxes } from "react-icons/ci";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { LiaExclamationTriangleSolid } from "react-icons/lia";
+
 const StatsCard = ({ stats }) => {
   const getIcon = (type) => {
     switch (type) {
       case "users":
-        return <CiBoxes className="h-6 w-6" />;
+        return <CiBoxes className="h-5 w-5" />;
       case "clock":
-        return <LuClock className="h-6 w-6" />;
+        return <LuClock className="h-5 w-5" />;
       case "transactions":
-        return <FaArrowRightArrowLeft className="h-6 w-6" />;
+        return <FaArrowRightArrowLeft className="h-5 w-5" />;
       case "alerts":
-        return <LiaExclamationTriangleSolid className="h-6 w-6" />;
+        return <LiaExclamationTriangleSolid className="h-5 w-5" />;
       default:
         return null;
     }
@@ -38,15 +39,15 @@ const StatsCard = ({ stats }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {stats.map((stat, index) => (
         <Card
           key={index}
-          className="rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200"
+          className="rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200"
         >
-          <CardHeader className="flex items-center justify-between">
+          <CardHeader className="flex items-center justify-between p-3">
             <div
-              className={`p-3 rounded-lg ${
+              className={`p-2 rounded-md ${
                 stat.iconBg === "blue"
                   ? "bg-blue-100 text-blue-600"
                   : stat.iconBg === "orange"
@@ -62,7 +63,7 @@ const StatsCard = ({ stats }) => {
             </div>
             {stat.badge && (
               <span
-                className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                className={`px-2 py-0.5 text-xs font-medium rounded-full ${getStatusColor(
                   stat.badgeType
                 )}`}
               >
@@ -71,16 +72,15 @@ const StatsCard = ({ stats }) => {
             )}
           </CardHeader>
 
-          <CardBody>
-            {/* Main content */}
-            <div className="space-y-2">
+          <CardBody className="p-3">
+            <div className="space-y-1">
               <div className="flex items-end gap-2">
-                <h3 className="text-3xl font-bold text-gray-900">
+                <h3 className="text-2xl font-semibold text-gray-900">
                   {stat.value}
                 </h3>
                 {stat.trend && (
                   <span
-                    className={`text-sm font-medium ${getTrendColor(
+                    className={`text-xs font-medium ${getTrendColor(
                       stat.trend
                     )}`}
                   >
@@ -88,13 +88,12 @@ const StatsCard = ({ stats }) => {
                   </span>
                 )}
               </div>
-              <p className="text-gray-600 font-medium">{stat.title}</p>
+              <p className="text-gray-600 text-sm font-medium">{stat.title}</p>
             </div>
 
-            {/* Footer / Subtitle */}
             {stat.subtitle && (
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <div className="flex items-center gap-2 text-sm">
+              <div className="mt-2 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-2 text-xs">
                   {stat.subtitleIcon && (
                     <span
                       className={

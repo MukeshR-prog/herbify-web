@@ -28,7 +28,7 @@ const icons = {
   Dashboard: <LayoutDashboard size={18} />,
   "Consumer Dashboard": <LayoutDashboard size={18} />,
   "Farmer Dashboard": <LayoutDashboard size={18} />,
-  "Add Stock": <Package size={18} />,
+  "Stock Details": <Package size={18} />,
   "Existing Stock": <Package size={18} />,
   "Pending Requests": <Clock size={18} />,
   "ML Analysis": <LineChart size={18} />,
@@ -51,8 +51,7 @@ const icons = {
 const sidebarContent = {
   [ROLES.COLLECTOR]: [
     { label: "Dashboard", href: "/collector" },
-    { label: "Add Stock", href: "/collector/add-stock" },
-    { label: "Existing Stock", href: "/collector/existing-stock" },
+    { label: "Stock Details", href: "/collector/stock" },
     { label: "Pending Requests", href: "/collector/farmer-request" },
     { label: "ML Analysis", href: "/collector/ml-analysis" },
     { label: "Transactions", href: "/collector/transactions" },
@@ -88,8 +87,12 @@ export function Sidebar({ role }) {
   return (
     <aside className="hidden md:flex w-60 min-h-screen bg-gray-50 border-r border-gray-200 p-4 flex-col gap-2">
       <div className="flex-1 space-y-2 py-4">
-        {sidebarContent[role].map((item) => {
-          const isActive = pathname === item.href;
+         {sidebarContent[role].map((item) => {
+        const isBaseRoute = item.href === `/${role.toLowerCase()}`;
+        const isActive = isBaseRoute
+          ? pathname === item.href
+          : pathname === item.href || pathname.startsWith(item.href + "/");
+         
           return (
             <Link
               key={item.href}
@@ -97,7 +100,7 @@ export function Sidebar({ role }) {
               className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-200
                 ${
                   isActive
-                    ? "bg-emerald-500 text-white shadow-md"
+                    ? "bg-[#64ae40] text-white shadow-md"
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
             >
@@ -109,7 +112,7 @@ export function Sidebar({ role }) {
                 {icons[item.label]}
               </span>
               <span
-                className={`transition-all duration-200 ${
+                className={`transition-all duration-200 text-[16px] ${
                   isActive ? "" : "group-hover:text-gray-900"
                 }`}
               >
