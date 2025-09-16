@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
-import MLPageHeader from "../../../components/ml-analysis/MLPageHeader";
-import CriticalAlertCard from "../../../components/ml-analysis/CriticalAlertCard";
-import MLMetricsCard from "../../../components/ml-analysis/MLMetricsCard";
-import BatchStatusCard from "../../../components/ml-analysis/BatchStatusCard";
-import EnvironmentCard from "../../../components/ml-analysis/EnvironmentCard";
-import AIInsightsCard from "../../../components/ml-analysis/AIInsightsCard";
+import React, { useState, useEffect } from "react";
+import MLPageHeader from "@/components/ml-analysis/MLPageHeader";
+import CriticalAlertCard from "@/components/ml-analysis/CriticalAlertCard";
+import MLMetricsCard from "@/components/ml-analysis/MLMetricsCard";
+import BatchStatusCard from "@/components/ml-analysis/BatchStatusCard";
+import EnvironmentCard from "@/components/ml-analysis/EnvironmentCard";
+import AIInsightsCard from "@/components/ml-analysis/AIInsightsCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { Card, CardBody } from "@heroui/react";
 import { 
   Target, 
@@ -20,6 +21,20 @@ import {
 } from "lucide-react";
 
 export default function MLAnalysisPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate initial data loading
+  useEffect(() => {
+    const loadMLData = async () => {
+      setIsLoading(true);
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 2200));
+      setIsLoading(false);
+    };
+    
+    loadMLData();
+  }, []);
+
   // Sample data - replace with your API calls
   const headerStats = {
     activeBatches: 247,
@@ -68,7 +83,15 @@ export default function MLAnalysisPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 p-4 sm:p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+      {isLoading ? (
+        <LoadingSpinner
+          fullScreen={true}
+          size="large"
+          color="#64ae40"
+          message="Loading ML analysis data..."
+        />
+      ) : (
+        <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header Section */}
         <MLPageHeader 
@@ -85,7 +108,7 @@ export default function MLAnalysisPage() {
             Critical Alerts
           </h2>
           <CriticalAlertCard
-            batchId="HRB-2024-003"
+            batchId="HRB-2025-003"
             herb="Neem Leaves"
             timeRemaining="48 hours"
             confidence={92}
@@ -93,9 +116,9 @@ export default function MLAnalysisPage() {
             humidity={75}
             location="Warehouse A-12"
             severity="high"
-            onDispatch={() => handleDispatchUrgent("HRB-2024-003")}
-            onDispose={() => handleMarkForDisposal("HRB-2024-003")}
-            onViewDetails={() => handleViewBatchDetails("HRB-2024-003")}
+            onDispatch={() => handleDispatchUrgent("HRB-2025-003")}
+            onDispose={() => handleMarkForDisposal("HRB-2025-003")}
+            onViewDetails={() => handleViewBatchDetails("HRB-2025-003")}
           />
         </section>
 
@@ -159,7 +182,7 @@ export default function MLAnalysisPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <BatchStatusCard
-              batchId="HRB-2024-002"
+              batchId="HRB-2025-002"
               herb="Ashwagandha"
               quantity="180kg"
               status="warning"
@@ -168,10 +191,10 @@ export default function MLAnalysisPage() {
               lastUpdated="2 hours ago"
               priority="high"
               additionalInfo="Temperature trending upward"
-              onViewDetails={() => handleViewBatchDetails("HRB-2024-002")}
+              onViewDetails={() => handleViewBatchDetails("HRB-2025-002")}
             />
             <BatchStatusCard
-              batchId="HRB-2024-001"
+              batchId="HRB-2025-001"
               herb="Turmeric"
               quantity="250kg"
               status="good"
@@ -180,10 +203,10 @@ export default function MLAnalysisPage() {
               lastUpdated="1 hour ago" 
               priority="normal"
               additionalInfo="All parameters within range"
-              onViewDetails={() => handleViewBatchDetails("HRB-2024-001")}
+              onViewDetails={() => handleViewBatchDetails("HRB-2025-001")}
             />
             <BatchStatusCard
-              batchId="HRB-2024-003"
+              batchId="HRB-2025-003"
               herb="Neem Leaves"
               quantity="75kg"
               status="critical"
@@ -192,10 +215,10 @@ export default function MLAnalysisPage() {
               lastUpdated="15 minutes ago"
               priority="high"
               additionalInfo="Multiple environmental thresholds exceeded"
-              onViewDetails={() => handleViewBatchDetails("HRB-2024-003")}
+              onViewDetails={() => handleViewBatchDetails("HRB-2025-003")}
             />
             <BatchStatusCard
-              batchId="HRB-2024-004"
+              batchId="HRB-2025-004"
               herb="Tulsi"
               quantity="120kg"
               status="fresh"
@@ -204,7 +227,7 @@ export default function MLAnalysisPage() {
               lastUpdated="30 minutes ago"
               priority="normal"
               additionalInfo="Quality assessment completed"
-              onViewDetails={() => handleViewBatchDetails("HRB-2024-004")}
+              onViewDetails={() => handleViewBatchDetails("HRB-2025-004")}
             />
           </div>
         </section>
@@ -288,7 +311,7 @@ export default function MLAnalysisPage() {
               <AIInsightsCard
                 type="suggestion"
                 title="Optimal Usage Timeline"
-                description="Batch #HRB-2024-001 (Turmeric): Best consumed before March 15, 2024 for maximum potency. Current quality retention at 95%."
+                description="Batch #HRB-2025-001 (Turmeric): Best consumed before March 15, 2025 for maximum potency. Current quality retention at 95%."
                 footer="Confidence: 94% | Expected shelf life: 287 days remaining"
                 priority="high"
                 icon={Calendar}
@@ -299,7 +322,7 @@ export default function MLAnalysisPage() {
               <AIInsightsCard
                 type="optimization"
                 title="Storage Optimization"
-                description="Vacuum packaging with desiccant at 15–18°C recommended for Batch #HRB-2024-002. This could extend shelf life significantly."
+                description="Vacuum packaging with desiccant at 15–18°C recommended for Batch #HRB-2025-002. This could extend shelf life significantly."
                 footer="Potential extension: +45 days | Cost-effective solution available"
                 priority="normal"
                 icon={Package2}
@@ -321,7 +344,7 @@ export default function MLAnalysisPage() {
               <AIInsightsCard
                 type="optimization"
                 title="Alternative Processing"
-                description="If Batch #HRB-2024-003 approaches expiry: Consider oil extraction or powder form to maximize utility and recover value."
+                description="If Batch #HRB-2025-003 approaches expiry: Consider oil extraction or powder form to maximize utility and recover value."
                 footer="Recovery value: 70–80% of original batch value | Processing time: 2-3 days"
                 priority="normal"
                 icon={Recycle}
@@ -346,7 +369,7 @@ export default function MLAnalysisPage() {
                     { label: "Tulsi (Current Batch)", value: "↗ High Demand", trend: "up" },
                     { label: "Export Market (EU)", value: "↗ Growing +15%", trend: "up" },
                     { label: "Domestic Pharma", value: "→ Stable", trend: "stable" },
-                    { label: "Seasonal Peak", value: "Feb–Apr 2024", trend: "stable" }
+                    { label: "Seasonal Peak", value: "Feb–Apr 2025", trend: "stable" }
                   ]
                 }}
               />
@@ -374,7 +397,7 @@ export default function MLAnalysisPage() {
                 data={{
                   bulletPoints: [
                     "Reduce transport time by 2 days using Route A",
-                    "Bundle with Batch #HRB-2024-004 for cost efficiency",
+                    "Bundle with Batch #HRB-2025-004 for cost efficiency",
                     "Schedule off-peak processing (−8% cost reduction)",
                     "⚠ Avoid transport during Mar 10–15 (festival delays expected)"
                   ]
@@ -383,7 +406,8 @@ export default function MLAnalysisPage() {
             </div>
           </div>
         </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

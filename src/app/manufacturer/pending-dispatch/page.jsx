@@ -7,7 +7,7 @@ import { ROLES } from "@/utils/roles";
 // Mock data for batches that are currently under processing
 const mockUnderProcessingBatches = [
   {
-    batchId: "HRB-2024-009",
+    batchId: "HRB-2025-009",
     herb: "Gotu Kola",
     species: "Centella asiatica",
     quantity: "90 kg (18 bags)",
@@ -17,7 +17,7 @@ const mockUnderProcessingBatches = [
     urgent: false,
   },
   {
-    batchId: "HRB-2024-010",
+    batchId: "HRB-2025-010",
     herb: "Ashwagandha",
     species: "Withania somnifera",
     quantity: "180 kg (36 bags)",
@@ -27,7 +27,7 @@ const mockUnderProcessingBatches = [
     urgent: true,
   },
   {
-    batchId: "HRB-2024-011",
+    batchId: "HRB-2025-011",
     herb: "Brahmi",
     species: "Bacopa monnieri",
     quantity: "65 kg (13 bags)",

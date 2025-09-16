@@ -31,8 +31,8 @@ const EnhancedJourneyTimeline = () => {
       title: "Cultivation Site",
       subtitle: "Organic Farm - Kerala",
       status: "Completed",
-      timestamp: "2024-03-15T08:00:00Z",
-      completedAt: "2024-05-20T16:30:00Z",
+      timestamp: "2025-03-15T08:00:00Z",
+      completedAt: "2025-05-20T16:30:00Z",
       duration: "66 days",
       progress: 100,
       location: "Wayanad, Kerala, India",
@@ -43,9 +43,9 @@ const EnhancedJourneyTimeline = () => {
       iconBg: "bg-green-100",
       iconColor: "text-green-600",
       details: [
-        { label: "Date Planted", value: "March 15, 2024", icon: Calendar },
-        { label: "Harvest Date", value: "May 20, 2024", icon: Package },
-        { label: "Farm License", value: "#OF-2024-KL-001", icon: Shield },
+        { label: "Date Planted", value: "March 15, 2025", icon: Calendar },
+        { label: "Harvest Date", value: "May 20, 2025", icon: Package },
+        { label: "Farm License", value: "#OF-2025-KL-001", icon: Shield },
         { label: "Farmer", value: "Raj Krishnan", icon: User },
         { label: "Soil Quality", value: "Grade A Certified", icon: Activity },
         { label: "Weather Conditions", value: "Optimal", icon: Thermometer }
@@ -68,8 +68,8 @@ const EnhancedJourneyTimeline = () => {
       title: "Processing Facility",
       subtitle: "GMP Certified Unit - Karnataka",
       status: "Completed",
-      timestamp: "2024-05-22T09:15:00Z",
-      completedAt: "2024-05-22T18:45:00Z",
+      timestamp: "2025-05-22T09:15:00Z",
+      completedAt: "2025-05-22T18:45:00Z",
       duration: "9 hours",
       progress: 100,
       location: "Bangalore, Karnataka, India",
@@ -80,9 +80,9 @@ const EnhancedJourneyTimeline = () => {
       iconBg: "bg-blue-100",
       iconColor: "text-blue-600",
       details: [
-        { label: "Processing Date", value: "May 22, 2024", icon: Calendar },
+        { label: "Processing Date", value: "May 22, 2025", icon: Calendar },
         { label: "Method", value: "Steam Distillation", icon: Package },
-        { label: "Facility License", value: "#PF-2024-KA-087", icon: Shield },
+        { label: "Facility License", value: "#PF-2025-KA-087", icon: Shield },
         { label: "Quality Officer", value: "Dr. Priya Sharma", icon: User },
         { label: "Batch Temperature", value: "95°C ± 2°C", icon: Thermometer },
         { label: "Processing Time", value: "8.5 hours", icon: Clock }
@@ -105,8 +105,8 @@ const EnhancedJourneyTimeline = () => {
       title: "In Transit",
       subtitle: "Temperature Controlled Transport",
       status: "Active",
-      timestamp: "2024-05-23T08:30:00Z",
-      estimatedCompletion: "2024-05-25T14:00:00Z",
+      timestamp: "2025-05-23T08:30:00Z",
+      estimatedCompletion: "2025-05-25T14:00:00Z",
       duration: "2 days 5.5 hours",
       progress: 65,
       location: "En route to Mumbai",
@@ -117,8 +117,8 @@ const EnhancedJourneyTimeline = () => {
       iconBg: "bg-amber-100",
       iconColor: "text-amber-600",
       details: [
-        { label: "Departure", value: "May 23, 2024 08:30", icon: Navigation },
-        { label: "ETA", value: "May 25, 2024 14:00", icon: Clock },
+        { label: "Departure", value: "May 23, 2025 08:30", icon: Navigation },
+        { label: "ETA", value: "May 25, 2025 14:00", icon: Clock },
         { label: "Vehicle ID", value: "#TRK-4578", icon: Truck },
         { label: "Driver", value: "Mohammed Ali", icon: User },
         { label: "Current Location", value: "Pune, Maharashtra", icon: MapPin },
@@ -151,7 +151,7 @@ const EnhancedJourneyTimeline = () => {
       subtitle: "HerbMart Logistics Hub",
       status: "Pending",
       timestamp: null,
-      estimatedStart: "2024-05-25T14:00:00Z",
+      estimatedStart: "2025-05-25T14:00:00Z",
       duration: "6 hours",
       progress: 0,
       location: "Mumbai, Maharashtra, India",
@@ -247,7 +247,7 @@ const EnhancedJourneyTimeline = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Supply Chain Tracking</h1>
-            <p className="text-gray-600 mt-1">Batch #HRB-2024-001 • Real-time visibility</p>
+            <p className="text-gray-600 mt-1">Batch #HRB-2025-001 • Real-time visibility</p>
           </div>
           <div className="flex gap-2">
             <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
@@ -271,8 +271,8 @@ const EnhancedJourneyTimeline = () => {
             <div className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500" style={{ width: "65%" }}></div>
           </div>
           <div className="flex justify-between text-xs text-gray-500 mt-2">
-            <span>Started: Mar 15, 2024</span>
-            <span>ETA: May 25, 2024</span>
+            <span>Started: Mar 15, 2025</span>
+            <span>ETA: May 25, 2025</span>
           </div>
         </div>
       </div>

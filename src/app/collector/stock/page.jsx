@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Package, 
   Truck, 
@@ -15,9 +15,35 @@ import StockSummaryCard from "@/components/stock/StockSummaryCard";
 import StockAnalyticsChart from "@/components/stock/StockAnalyticsChart";
 import StockTable from "@/components/stock/StockTable";
 import StockTabs from "@/components/stock/StockTabs";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const StockPage = () => {
   const [activeTab, setActiveTab] = useState("instock");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isTabLoading, setIsTabLoading] = useState(false);
+
+  // Simulate initial data loading
+  useEffect(() => {
+    const loadStockData = async () => {
+      setIsLoading(true);
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1800));
+      setIsLoading(false);
+    };
+    
+    loadStockData();
+  }, []);
+
+  // Handle tab change with loading
+  const handleTabChange = async (newTab) => {
+    if (newTab !== activeTab) {
+      setIsTabLoading(true);
+      // Simulate API call for new tab data
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setActiveTab(newTab);
+      setIsTabLoading(false);
+    }
+  };
 
   // Sample data - replace with actual API calls
   const instockSummary = {
@@ -38,66 +64,66 @@ const StockPage = () => {
   const instockData = [
     {
       id: "1",
-      batchId: "BTH-2024-001",
+      batchId: "BTH-2025-001",
       herbName: "Turmeric",
       herbType: "Anti-inflammatory",
       quantity: "125",
       unit: "kg",
       source: "Rajesh Kumar",
       sourceType: "Farmer",
-      dateReceived: "2024-01-15",
+      dateReceived: "2025-01-15",
       expiryRisk: "Low",
       status: "Available"
     },
     {
       id: "2", 
-      batchId: "BTH-2024-002",
+      batchId: "BTH-2025-002",
       herbName: "Ashwagandha",
       herbType: "Adaptogen",
       quantity: "89",
       unit: "kg", 
       source: "Priya Collective",
       sourceType: "Collector",
-      dateReceived: "2024-01-12",
+      dateReceived: "2025-01-12",
       expiryRisk: "Medium",
       status: "Available"
     },
     {
       id: "3",
-      batchId: "BTH-2024-003", 
+      batchId: "BTH-2025-003", 
       herbName: "Neem",
       herbType: "Antibacterial",
       quantity: "67",
       unit: "kg",
       source: "Suresh Farming",
       sourceType: "Farmer", 
-      dateReceived: "2024-01-08",
+      dateReceived: "2025-01-08",
       expiryRisk: "High",
       status: "Expiring Soon"
     },
     {
       id: "4",
-      batchId: "BTH-2024-004",
+      batchId: "BTH-2025-004",
       herbName: "Brahmi",
       herbType: "Cognitive",
       quantity: "143",
       unit: "kg",
       source: "Wellness Farmers",
       sourceType: "Collective",
-      dateReceived: "2024-01-20",
+      dateReceived: "2025-01-20",
       expiryRisk: "Low",
       status: "Available"
     },
     {
       id: "5",
-      batchId: "BTH-2024-005",
+      batchId: "BTH-2025-005",
       herbName: "Triphala",
       herbType: "Digestive",
       quantity: "234",
       unit: "kg", 
       source: "Kumar Brothers",
       sourceType: "Farmer",
-      dateReceived: "2024-01-18",
+      dateReceived: "2025-01-18",
       expiryRisk: "Low", 
       status: "Available"
     }
@@ -107,50 +133,50 @@ const StockPage = () => {
   const dispatchedData = [
     {
       id: "1",
-      dispatchId: "DSP-2024-001", 
+      dispatchId: "DSP-2025-001", 
       herbName: "Turmeric",
       herbType: "Anti-inflammatory",
       quantitySent: "200",
       unit: "kg",
       manufacturerName: "Himalaya Wellness",
       manufacturerLocation: "Mumbai, MH",
-      dateOfDispatch: "2024-01-10",
+      dateOfDispatch: "2025-01-10",
       status: "Delivered"
     },
     {
       id: "2",
-      dispatchId: "DSP-2024-002",
+      dispatchId: "DSP-2025-002",
       herbName: "Ashwagandha", 
       herbType: "Adaptogen",
       quantitySent: "150",
       unit: "kg",
       manufacturerName: "Patanjali Ayurved",
       manufacturerLocation: "Haridwar, UK",
-      dateOfDispatch: "2024-01-08",
+      dateOfDispatch: "2025-01-08",
       status: "In Transit"
     },
     {
       id: "3",
-      dispatchId: "DSP-2024-003",
+      dispatchId: "DSP-2025-003",
       herbName: "Brahmi",
       herbType: "Cognitive", 
       quantitySent: "75",
       unit: "kg",
       manufacturerName: "Baidyanath Group",
       manufacturerLocation: "Kolkata, WB",
-      dateOfDispatch: "2024-01-12",
+      dateOfDispatch: "2025-01-12",
       status: "Completed"
     },
     {
       id: "4",
-      dispatchId: "DSP-2024-004",
+      dispatchId: "DSP-2025-004",
       herbName: "Neem",
       herbType: "Antibacterial",
       quantitySent: "180",
       unit: "kg",
       manufacturerName: "Dabur India",
       manufacturerLocation: "Ghaziabad, UP", 
-      dateOfDispatch: "2024-01-14",
+      dateOfDispatch: "2025-01-14",
       status: "Pending"
     }
   ];
@@ -333,7 +359,15 @@ const StockPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-7xl mx-auto p-6">
+      {isLoading ? (
+        <LoadingSpinner
+          fullScreen={true}
+          size="large"
+          color="#64ae40"
+          message="Loading stock management data..."
+        />
+      ) : (
+        <div className="max-w-7xl mx-auto p-6">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
@@ -354,11 +388,30 @@ const StockPage = () => {
         {/* Tabbed Content */}
         <StockTabs
           activeTab={activeTab}
-          onTabChange={setActiveTab}
-          instockContent={renderInstockTab()}
-          dispatchedContent={renderDispatchedTab()}
+          onTabChange={handleTabChange}
+          instockContent={isTabLoading ? (
+            <LoadingSpinner
+              size="large"
+              color="#64ae40"
+              message="Loading tab data..."
+              className="py-20"
+            />
+          ) : (
+            renderInstockTab()
+          )}
+          dispatchedContent={isTabLoading ? (
+            <LoadingSpinner
+              size="large"
+              color="#64ae40"
+              message="Loading tab data..."
+              className="py-20"
+            />
+          ) : (
+            renderDispatchedTab()
+          )}
         />
-      </div>
+        </div>
+      )}
     </div>
   );
 };

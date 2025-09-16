@@ -7,7 +7,7 @@ import { ROLES } from "@/utils/roles";
 // Mock data for incoming orders
 const mockOrders = [
   {
-    orderId: "ORD-2024-001",
+    orderId: "ORD-2025-001",
     client: "Ayur Wellness Inc.",
     orderDate: "14 Sept 2025",
     product: "Gotu Kola Extract",
@@ -16,7 +16,7 @@ const mockOrders = [
     urgent: true,
   },
   {
-    orderId: "ORD-2024-002",
+    orderId: "ORD-2025-002",
     client: "Herbal Remedies Co.",
     orderDate: "12 Sept 2025",
     product: "Neem Powder",
@@ -25,7 +25,7 @@ const mockOrders = [
     urgent: false,
   },
   {
-    orderId: "ORD-2024-003",
+    orderId: "ORD-2025-003",
     client: "Global Naturals",
     orderDate: "10 Sept 2025",
     product: "Ashwagandha Oil",

@@ -7,7 +7,7 @@ import { ROLES } from "@/utils/roles";
 // Mock data for products that have been dispatched
 const mockDispatchedProducts = [
   {
-    dispatchId: "DSP-2024-001",
+    dispatchId: "DSP-2025-001",
     herb: "Gotu Kola Extract",
     species: "Centella asiatica",
     quantity: "90 kg (18 bags)",
@@ -17,7 +17,7 @@ const mockDispatchedProducts = [
     urgent: false,
   },
   {
-    dispatchId: "DSP-2024-002",
+    dispatchId: "DSP-2025-002",
     herb: "Neem Powder",
     species: "Azadirachta indica",
     quantity: "75 kg (15 bags)",
@@ -27,7 +27,7 @@ const mockDispatchedProducts = [
     urgent: false,
   },
   {
-    dispatchId: "DSP-2024-003",
+    dispatchId: "DSP-2025-003",
     herb: "Ashwagandha Oil",
     species: "Withania somnifera",
     quantity: "180 kg (36 bags)",

@@ -16,6 +16,7 @@ import {
   Button,
   Pagination,
   Checkbox,
+  Tooltip,
   Modal,
   ModalContent,
   ModalHeader,
@@ -31,7 +32,9 @@ import {
   FaTree,
   FaSpa,
   FaCheckSquare,
+  FaQrcode,
 } from "react-icons/fa";
+import QRCode from "react-qr-code";
 
 // Map each herb type to an icon + color
 const herbIcons = {
@@ -91,7 +94,7 @@ const HerbsDataTable = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [sortBy, setSortBy] = useState("Expiry Date");
+  const [sortBy, setSortBy] = useState("Batch ID");
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
   const [selectedItems, setSelectedItems] = useState([]);
@@ -148,8 +151,6 @@ const HerbsDataTable = ({
 
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case "Expiry Date":
-          return (b.expiryDays || 0) - (a.expiryDays || 0); // Higher expiry days first
         case "Batch ID":
           return a.batchId.localeCompare(b.batchId);
         default:
@@ -166,7 +167,15 @@ const HerbsDataTable = ({
     const start = (page - 1) * rowsPerPage;
     return filteredData.slice(start, start + rowsPerPage);
   }, [filteredData, page]);
+  const [selectedBatch, setSelectedBatch] = useState(null);
 
+  const handleOpenModal = (item) => {
+    setSelectedBatch(item);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBatch(null);
+  };
   return (
     <>
       <Card className="shadow-md">
@@ -230,7 +239,6 @@ const HerbsDataTable = ({
               onChange={(e) => setSortBy(e.target.value)}
               className="w-40"
             >
-              <SelectItem key="Expiry Date">Expiry Date</SelectItem>
               <SelectItem key="Batch ID">Batch ID</SelectItem>
             </Select>
           </div>
@@ -287,24 +295,36 @@ const HerbsDataTable = ({
                     {item.quantity} ({item.bags} bags)
                   </TableCell>
                   <TableCell>
-                    {onViewDetails ? (
-                      <Button
-                        size="sm"
-                        color="primary"
-                        variant="flat"
-                        onPress={() => onViewDetails(item)}
-                      >
-                        View Details
-                      </Button>
-                    ) : (
-                      <Button
-                        size="sm"
-                        color="primary"
-                        variant="flat"
-                      >
-                        Dispatch
-                      </Button>
-                    )}
+                    <div className="flex items-center gap-2">
+                      <Tooltip content="View QR">
+                        <Button
+                          isIconOnly
+                          size="sm"
+                          variant="light"
+                          onPress={() => handleOpenModal(item)}
+                        >
+                          <FaQrcode />
+                        </Button>
+                      </Tooltip>
+                      {onViewDetails ? (
+                        <Button
+                          size="sm"
+                          color="primary"
+                          variant="flat"
+                          onPress={() => onViewDetails(item)}
+                        >
+                          View Details
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          color="primary"
+                          variant="flat"
+                        >
+                          Dispatch
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
                   
                 </TableRow>
@@ -329,6 +349,47 @@ const HerbsDataTable = ({
           />
         </div>
       </CardBody>
+      <Modal isOpen={!!selectedBatch} onOpenChange={handleCloseModal}>
+        <ModalContent>
+          <ModalHeader className="text-xl font-bold">
+            Batch Details
+          </ModalHeader>
+          <ModalBody>
+            {selectedBatch && (
+              <div className="space-y-3">
+                <p>
+                  <strong>Batch ID:</strong> {selectedBatch.batchId}
+                </p>
+                <p>
+                  <strong>Herb Type:</strong> {selectedBatch.herbType}
+                </p>
+                <p>
+                  <strong>Scientific Name:</strong> {selectedBatch.scientificName}
+                </p>
+                <p>
+                  <strong>Quantity:</strong> {selectedBatch.quantity} ({selectedBatch.bags} bags)
+                </p>
+                <p>
+                  <strong>Quality Score:</strong> {selectedBatch.qualityScore}%
+                </p>
+
+                {/* QR Code */}
+                <div className="flex justify-center py-4">
+                  <QRCode
+                    value={`Batch ID: ${selectedBatch.batchId} | Herb: ${selectedBatch.herbType}`}
+                    size={128}
+                  />
+                </div>
+              </div>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Card>
 
     {/* Batch Creation Modal */}

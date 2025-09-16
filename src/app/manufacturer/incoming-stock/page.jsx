@@ -7,7 +7,7 @@ import { ROLES } from "@/utils/roles";
 // Mock data for the inventory table
 const mockBatches = [
   {
-    batchId: "HRB-2024-003",
+    batchId: "HRB-2025-003",
     herb: "Neem Leaves",
     species: "Azadirachta indica",
     addedDate: "5 Sept 2025",
@@ -18,7 +18,7 @@ const mockBatches = [
     urgent: true,
   },
   {
-    batchId: "HRB-2024-008",
+    batchId: "HRB-2025-008",
     herb: "Fenugreek",
     species: "Trigonella foenum-graecum",
     addedDate: "29 Aug 2025",
@@ -29,7 +29,7 @@ const mockBatches = [
     urgent: true,
   },
   {
-    batchId: "HRB-2024-002",
+    batchId: "HRB-2025-002",
     herb: "Ashwagandha",
     species: "Withania somnifera",
     addedDate: "3 Sept 2025",
@@ -40,7 +40,7 @@ const mockBatches = [
     urgent: false,
   },
   {
-    batchId: "HRB-2024-001",
+    batchId: "HRB-2025-001",
     herb: "Gotu Kola",
     species: "Centella asiatica",
     addedDate: "1 Sept 2025",
@@ -51,7 +51,7 @@ const mockBatches = [
     urgent: false,
   },
   {
-    batchId: "HRB-2024-007",
+    batchId: "HRB-2025-007",
     herb: "Brahmi",
     species: "Bacopa monnieri",
     addedDate: "6 Sept 2025",
@@ -62,7 +62,7 @@ const mockBatches = [
     urgent: false,
   },
   {
-    batchId: "HRB-2024-006",
+    batchId: "HRB-2025-006",
     herb: "Amla",
     species: "Phyllanthus emblica",
     addedDate: "8 Sept 2025",
