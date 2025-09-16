@@ -58,12 +58,12 @@ const sidebarContent = {
   ],
   [ROLES.MANUFACTURER]: [
     { label: "Dashboard", href: "/manufacturer" },
-    { label: "Incoming Stock", href: "/manufacturer/incoming-stock" },
+    // { label: "Incoming Stock", href: "/manufacturer/incoming-stock" },
     { label: "Existing Stock", href: "/manufacturer/existing-stock" },
     { label: "Under Processing", href: "/manufacturer/processing" },
-    { label: "Products to Dispatch", href: "/manufacturer/pending-dispatch" },
+    // { label: "Products to Dispatch", href: "/manufacturer/pending-dispatch" },
     { label: "Products Dispatched", href: "/manufacturer/dispatched" },
-    { label: "Orders", href: "/manufacturer/orders" },
+    // { label: "Orders", href: "/manufacturer/orders" },
   ],
   [ROLES.FARMER]: [
     { label: "Farmer Dashboard", href: "/farmer" },
