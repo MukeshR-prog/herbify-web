@@ -15,9 +15,8 @@ import {
   SelectItem,
   Button,
   Pagination,
-  Chip,
+  Checkbox,
   Tooltip,
-  Progress,
   Modal,
   ModalContent,
   ModalHeader,
@@ -28,12 +27,12 @@ import {
   FaSearch,
   FaPlus,
   FaDownload,
-  FaQrcode,
-  FaEllipsisV,
   FaLeaf,
   FaSeedling,
   FaTree,
   FaSpa,
+  FaCheckSquare,
+  FaQrcode,
 } from "react-icons/fa";
 import QRCode from "react-qr-code";
 
@@ -85,29 +84,22 @@ const formatDate = (dateStr) => {
   });
 };
 
-const getDaysLeft = (expiryDateStr) => {
-  const today = new Date();
-  const expiry = new Date(expiryDateStr);
-  const diff = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
-  return diff;
-};
-
-const getExpiryStatus = (expiryDateStr) => {
-  const days = getDaysLeft(expiryDateStr);
-  if (days < 0) return { text: "Expired", color: "danger", urgent: true };
-  if (days <= 7)
-    return { text: `${days} days left`, color: "danger", urgent: true };
-  if (days <= 30)
-    return { text: `${days} days left`, color: "warning", urgent: false };
-  return { text: `${days} days left`, color: "success", urgent: false };
-};
-
-const HerbsDataTable = ({ data }) => {
+const HerbsDataTable = ({ 
+  data, 
+  enableBatchCreation = false, 
+  onBatchCreated = () => {},
+  title = "Existing Stock Inventory",
+  subtitle = "Manage and monitor your herbal stock batches",
+  onViewDetails = null
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [sortBy, setSortBy] = useState("Expiry Date");
+  const [sortBy, setSortBy] = useState("Batch ID");
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
+  const [batchName, setBatchName] = useState("");
 
   // Categories
   const categories = useMemo(() => {
@@ -116,6 +108,34 @@ const HerbsDataTable = ({ data }) => {
       ...new Set(data.map((item) => item.herbType.split(" ")[0])),
     ];
   }, [data]);
+
+  // Handle checkbox selection
+  const handleItemSelect = (batchId, isSelected) => {
+    setSelectedItems(prev => 
+      isSelected 
+        ? [...prev, batchId]
+        : prev.filter(id => id !== batchId)
+    );
+  };
+
+  // Handle batch creation
+  const handleCreateBatch = () => {
+    if (selectedItems.length === 0) return;
+    
+    const batchId = `PRC-${Date.now()}`;
+    const batchDetails = {
+      batchId,
+      batchName,
+      selectedItems,
+    };
+    
+    onBatchCreated(batchDetails);
+    
+    // Reset state
+    setSelectedItems([]);
+    setBatchName("");
+    setIsBatchModalOpen(false);
+  };
 
   // Filter & Sort
   const filteredData = useMemo(() => {
@@ -131,10 +151,6 @@ const HerbsDataTable = ({ data }) => {
 
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case "Expiry Date":
-          return new Date(a.expiryDays) - new Date(b.expiryDays);
-        case "Quality Score":
-          return b.qualityScore - a.qualityScore;
         case "Batch ID":
           return a.batchId.localeCompare(b.batchId);
         default:
@@ -161,15 +177,26 @@ const HerbsDataTable = ({ data }) => {
     setSelectedBatch(null);
   };
   return (
-    <Card className="shadow-md">
+    <>
+      <Card className="shadow-md">
       <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h2 className="text-xl font-bold">Existing Stock Inventory</h2>
+          <h2 className="text-xl font-bold">{title}</h2>
           <p className="text-sm text-gray-500">
-            Manage and monitor your herbal stock batches
+            {subtitle}
           </p>
         </div>
         <div className="flex gap-3">
+          {enableBatchCreation && (
+            <Button 
+              color="primary" 
+              startContent={<FaCheckSquare />}
+              onPress={() => setIsBatchModalOpen(true)}
+              isDisabled={selectedItems.length === 0}
+            >
+              Create Batch {selectedItems.length > 0 && `(${selectedItems.length})`}
+            </Button>
+          )}
           <Button color="success" startContent={<FaPlus />}>
             Add Stock
           </Button>
@@ -212,8 +239,6 @@ const HerbsDataTable = ({ data }) => {
               onChange={(e) => setSortBy(e.target.value)}
               className="w-40"
             >
-              <SelectItem key="Expiry Date">Expiry Date</SelectItem>
-              <SelectItem key="Quality Score">Quality Score</SelectItem>
               <SelectItem key="Batch ID">Batch ID</SelectItem>
             </Select>
           </div>
@@ -224,17 +249,14 @@ const HerbsDataTable = ({ data }) => {
         {/* Table */}
         <Table aria-label="Inventory Table">
           <TableHeader>
-            <TableColumn>Batch ID</TableColumn>
-            <TableColumn>Herb</TableColumn>
-            <TableColumn>Quantity</TableColumn>
-            <TableColumn>Quality</TableColumn>
-            <TableColumn>Expiry</TableColumn>
-            <TableColumn>QR</TableColumn>
-            <TableColumn>Actions</TableColumn>
+            <TableColumn key="select" className={enableBatchCreation ? "" : "hidden"}>Select</TableColumn>
+            <TableColumn key="batchId">Batch ID</TableColumn>
+            <TableColumn key="batchName">Batch Name</TableColumn>
+            <TableColumn key="quantity">Quantity</TableColumn>
+            <TableColumn key="actions">Actions</TableColumn>
           </TableHeader>
-          <TableBody emptyContent={"No herbs found"}>
+          <TableBody emptyContent={"No batches found"}>
             {paginatedData.map((item) => {
-              const expiry = getExpiryStatus(item.expiryDays);
               const herb = herbIcons[item.herbType] || {
                 icon: <FaLeaf />,
                 color: "bg-gray-100",
@@ -242,6 +264,12 @@ const HerbsDataTable = ({ data }) => {
 
               return (
                 <TableRow key={item.batchId}>
+                  <TableCell className={enableBatchCreation ? "" : "hidden"}>
+                    <Checkbox
+                      isSelected={selectedItems.includes(item.batchId)}
+                      onValueChange={(isSelected) => handleItemSelect(item.batchId, isSelected)}
+                    />
+                  </TableCell>
                   <TableCell>
                     <div>
                       <p className="font-semibold">{item.batchId}</p>
@@ -266,58 +294,39 @@ const HerbsDataTable = ({ data }) => {
                   <TableCell>
                     {item.quantity} ({item.bags} bags)
                   </TableCell>
-                  <TableCell className="w-40">
-                    <Progress
-                      value={item.qualityScore}
-                      color={
-                        item.qualityScore >= 80
-                          ? "success"
-                          : item.qualityScore >= 60
-                          ? "warning"
-                          : "danger"
-                      }
-                      className="h-2"
-                    />
-                    <p className="text-xs mt-1 text-gray-600">
-                      {item.qualityScore}%
-                    </p>
-                  </TableCell>
                   <TableCell>
-                    <Chip
-                      color={expiry.color}
-                      variant="flat"
-                      className="text-sm font-medium"
-                    >
-                      {expiry.text}
-                    </Chip>
-                    <p className="text-xs text-gray-500">
-                      Exp: {formatDate(item.expiryDays)}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <Tooltip content="View QR">
+                        <Button
+                          isIconOnly
+                          size="sm"
+                          variant="light"
+                          onPress={() => handleOpenModal(item)}
+                        >
+                          <FaQrcode />
+                        </Button>
+                      </Tooltip>
+                      {onViewDetails ? (
+                        <Button
+                          size="sm"
+                          color="primary"
+                          variant="flat"
+                          onPress={() => onViewDetails(item)}
+                        >
+                          View Details
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          color="primary"
+                          variant="flat"
+                        >
+                          Dispatch
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
-                  <TableCell>
-                         <Tooltip content="View QR">
-                  <Button
-                    isIconOnly
-                    size="sm"
-                    variant="light"
-                    onPress={() => handleOpenModal(item)}
-                  >
-                    <FaQrcode />
-                  </Button>
-                </Tooltip>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      size="sm"
-                      color={expiry.urgent ? "danger" : "primary"}
-                      variant="flat"
-                    >
-                      {expiry.urgent ? "Urgent" : "Dispatch"}
-                    </Button>
-                    <Button isIconOnly size="sm" variant="light">
-                      <FaEllipsisV />
-                    </Button>
-                  </TableCell>
+                  
                 </TableRow>
               );
             })}
@@ -363,9 +372,6 @@ const HerbsDataTable = ({ data }) => {
                 <p>
                   <strong>Quality Score:</strong> {selectedBatch.qualityScore}%
                 </p>
-                <p>
-                  <strong>Expiry Date:</strong> {formatDate(selectedBatch.expiryDays)}
-                </p>
 
                 {/* QR Code */}
                 <div className="flex justify-center py-4">
@@ -385,6 +391,50 @@ const HerbsDataTable = ({ data }) => {
         </ModalContent>
       </Modal>
     </Card>
+
+    {/* Batch Creation Modal */}
+    <Modal 
+      isOpen={isBatchModalOpen} 
+      onOpenChange={setIsBatchModalOpen}
+      size="md"
+    >
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">
+              <h3 className="text-lg font-semibold">Create New Batch</h3>
+              <p className="text-sm text-gray-600">
+                {selectedItems.length} item{selectedItems.length !== 1 ? 's' : ''} selected
+              </p>
+            </ModalHeader>
+            <ModalBody>
+              <div className="space-y-4">
+                <Input
+                  label="Batch Name"
+                  placeholder="Enter batch name"
+                  value={batchName}
+                  onChange={(e) => setBatchName(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose}>
+                Cancel
+              </Button>
+              <Button 
+                color="primary" 
+                onPress={handleCreateBatch}
+                isDisabled={!batchName.trim()}
+              >
+                Create Batch
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
+    </>
   );
 };
 

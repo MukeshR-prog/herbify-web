@@ -6,6 +6,7 @@ import StatsCard from "@/components/cards/StatsCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import LoadingButton from "@/components/LoadingButton";
 import { ROLES } from "@/utils/roles";
+import { inventoryData } from "@/utils/inventoryData";
 import { Card, CardBody, Progress, Chip, Badge, Button } from "@heroui/react";
 import {
   TrendingUp,
@@ -178,17 +179,6 @@ export default function CollectorDashboard() {
   // Calculate insights from current data
   const currentDate = new Date("2025-09-15T00:00:00Z");
 
-  // Quality Score Analysis
-  const averageQuality =
-    inventoryData.reduce((sum, item) => sum + item.qualityScore, 0) /
-    inventoryData.length;
-  const highQualityCount = inventoryData.filter(
-    (item) => item.qualityScore >= 85
-  ).length;
-  const lowQualityCount = inventoryData.filter(
-    (item) => item.qualityScore < 70
-  ).length;
-
   // Expiry Risk Analysis
   const expiringIn7Days = inventoryData.filter((item) => {
     const daysToExpiry = Math.ceil(
@@ -267,18 +257,6 @@ export default function CollectorDashboard() {
 
   // Dashboard Insights
   const insights = [
-    {
-      title: "Quality Performance",
-      type: "quality",
-      icon: Target,
-      color: "blue",
-      data: {
-        average: Math.round(averageQuality),
-        highQuality: highQualityCount,
-        lowQuality: lowQualityCount,
-        trend: "+3.2%",
-      },
-    },
     {
       title: "Inventory Health",
       type: "inventory",
@@ -384,26 +362,6 @@ export default function CollectorDashboard() {
               </Chip>
             )}
           </div>
-
-          {insight.type === "quality" && (
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold">
-                  {insight.data.average}%
-                </span>
-                <span className="text-xs">Avg Quality</span>
-              </div>
-              <Progress
-                value={insight.data.average}
-                className="h-2"
-                color="primary"
-              />
-              <div className="flex justify-between text-xs">
-                <span>High Quality: {insight.data.highQuality}</span>
-                <span>Low Quality: {insight.data.lowQuality}</span>
-              </div>
-            </div>
-          )}
 
           {insight.type === "inventory" && (
             <div className="space-y-2">
@@ -704,27 +662,6 @@ export default function CollectorDashboard() {
                   </div>
                   <Chip size="sm" color="warning">
                     High
-                  </Chip>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card className="border-l-4 border-blue-500">
-              <CardBody className="p-4">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="font-semibold text-blue-700">
-                      Optimization: Quality Improvement
-                    </div>
-                    <div className="text-sm text-slate-600 mt-1">
-                      {lowQualityCount} batches below quality threshold
-                    </div>
-                    <div className="text-xs text-blue-600 mt-2">
-                      Action: Review collection practices with farmers
-                    </div>
-                  </div>
-                  <Chip size="sm" color="primary">
-                    Medium
                   </Chip>
                 </div>
               </CardBody>
