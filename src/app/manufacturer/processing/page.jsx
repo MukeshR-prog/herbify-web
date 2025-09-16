@@ -7,7 +7,7 @@ import { ROLES } from "@/utils/roles";
 // Mock data for batches currently under processing
 const mockProcessingBatches = [
   {
-    batchId: "PRC-2024-001",
+    batchId: "PRC-2025-001",
     herb: "Gotu Kola",
     species: "Centella asiatica",
     addedDate: "15 Sept 2025",
@@ -17,7 +17,7 @@ const mockProcessingBatches = [
     lastUpdate: "16 Sept 2025",
   },
   {
-    batchId: "PRC-2024-002",
+    batchId: "PRC-2025-002",
     herb: "Neem Powder",
     species: "Azadirachta indica",
     addedDate: "13 Sept 2025",
@@ -27,7 +27,7 @@ const mockProcessingBatches = [
     lastUpdate: "14 Sept 2025",
   },
   {
-    batchId: "PRC-2024-003",
+    batchId: "PRC-2025-003",
     herb: "Ashwagandha",
     species: "Withania somnifera",
     addedDate: "12 Sept 2025",

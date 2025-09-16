@@ -1,7 +1,10 @@
 "use client";
+import { useState, useEffect } from "react";
 import HerbsDataTable from "@/components/HerbsDataTable";
 import { RoleGuard } from "@/components/RoleGuard";
 import StatsCard from "@/components/cards/StatsCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingButton from "@/components/LoadingButton";
 import { ROLES } from "@/utils/roles";
 import { Card, CardBody, Progress, Chip, Badge, Button } from "@heroui/react";
 import {
@@ -24,9 +27,55 @@ import {
 import { FaDownload } from "react-icons/fa";
 
 export default function CollectorDashboard() {
+  // Loading states
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRequestingFarmer, setIsRequestingFarmer] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  
+  // Simulate initial data loading
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      setIsLoading(true);
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setIsLoading(false);
+    };
+    
+    loadDashboardData();
+  }, []);
+
+  // Button handlers with loading states
+  const handleRequestFarmer = async () => {
+    setIsRequestingFarmer(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Handle success - navigate or show success message
+      console.log("Farmer request submitted successfully");
+    } catch (error) {
+      console.error("Error requesting farmer:", error);
+    } finally {
+      setIsRequestingFarmer(false);
+    }
+  };
+
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Handle export logic
+      console.log("Export completed successfully");
+    } catch (error) {
+      console.error("Error exporting data:", error);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const inventoryData = [
     {
-      batchId: "HRB-2024-001",
+      batchId: "HRB-2025-001",
       addedDate: new Date("2025-09-10T09:30:00Z"), // when added
       herbType: "Turmeric",
       scientificName: "Curcuma longa",
@@ -36,7 +85,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-10-25T09:30:00Z"), // expiry date
     },
     {
-      batchId: "HRB-2024-002",
+      batchId: "HRB-2025-002",
       addedDate: new Date("2025-09-07T14:15:00Z"),
       herbType: "Ashwagandha",
       scientificName: "Withania somnifera",
@@ -46,7 +95,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-09-24T14:15:00Z"),
     },
     {
-      batchId: "HRB-2024-003",
+      batchId: "HRB-2025-003",
       addedDate: new Date("2025-09-05T10:00:00Z"),
       herbType: "Neem Leaves",
       scientificName: "Azadirachta indica",
@@ -56,7 +105,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-09-14T10:00:00Z"),
     },
     {
-      batchId: "HRB-2024-004",
+      batchId: "HRB-2025-004",
       addedDate: new Date("2025-09-09T12:00:00Z"),
       herbType: "Ginger",
       scientificName: "Zingiber officinale",
@@ -66,7 +115,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-10-12T12:00:00Z"),
     },
     {
-      batchId: "HRB-2024-005",
+      batchId: "HRB-2025-005",
       addedDate: new Date("2025-09-11T16:30:00Z"),
       herbType: "Tulsi",
       scientificName: "Ocimum tenuiflorum",
@@ -76,7 +125,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-11-10T16:30:00Z"),
     },
     {
-      batchId: "HRB-2024-006",
+      batchId: "HRB-2025-006",
       addedDate: new Date("2025-09-08T09:45:00Z"),
       herbType: "Amla",
       scientificName: "Phyllanthus emblica",
@@ -86,7 +135,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-10-07T09:45:00Z"),
     },
     {
-      batchId: "HRB-2024-007",
+      batchId: "HRB-2025-007",
       addedDate: new Date("2025-09-06T11:20:00Z"),
       herbType: "Brahmi",
       scientificName: "Bacopa monnieri",
@@ -96,7 +145,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-09-27T11:20:00Z"),
     },
     {
-      batchId: "HRB-2024-008",
+      batchId: "HRB-2025-008",
       addedDate: new Date("2025-08-29T08:00:00Z"),
       herbType: "Fenugreek",
       scientificName: "Trigonella foenum-graecum",
@@ -106,7 +155,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-09-20T08:00:00Z"),
     },
     {
-      batchId: "HRB-2024-009",
+      batchId: "HRB-2025-009",
       addedDate: new Date("2025-09-11T18:40:00Z"),
       herbType: "Cardamom",
       scientificName: "Elettaria cardamomum",
@@ -116,7 +165,7 @@ export default function CollectorDashboard() {
       expiryDays: new Date("2025-12-10T18:40:00Z"),
     },
     {
-      batchId: "HRB-2024-010",
+      batchId: "HRB-2025-010",
       addedDate: new Date("2025-09-09T09:30:00Z"),
       herbType: "Cinnamon",
       scientificName: "Cinnamomum verum",
@@ -500,10 +549,18 @@ export default function CollectorDashboard() {
 
   return (
     <RoleGuard allowed={[ROLES.COLLECTOR]}>
-      <div
-        className="bg-white text-black min-h-screen p-4"
-        style={{ backgroundColor: "#fff", color: "#000" }}
-      >
+      {isLoading ? (
+        <LoadingSpinner
+          fullScreen={true}
+          size="large"
+          color="#64ae40"
+          message="Loading dashboard analytics..."
+        />
+      ) : (
+        <div
+          className="bg-white text-black min-h-screen p-4"
+          style={{ backgroundColor: "#fff", color: "#000" }}
+        >
         <div className="p-3 mt-[-10px] flex justify-between items-start">
           {/* Left Side - Heading & Subtext */}
           <div>
@@ -517,12 +574,26 @@ export default function CollectorDashboard() {
 
           {/* Right Side - Buttons */}
           <div className="flex gap-3">
-            <Button startContent={<Plus/>} className="w-fit px-6 py-2 rounded-lg shadow-md bg-[#64ae40] text-white">
-             Request a Farmer
-            </Button>
-           <Button variant="bordered" startContent={<FaDownload />}>
-                      Export
-                    </Button>
+            <LoadingButton
+              startContent={<Plus />}
+              className="w-fit px-6 py-2 rounded-lg shadow-md bg-[#64ae40] text-white"
+              isLoading={isRequestingFarmer}
+              loadingText="Requesting..."
+              onClick={handleRequestFarmer}
+              spinnerColor="#ffffff"
+            >
+              Request a Farmer
+            </LoadingButton>
+            <LoadingButton
+              variant="bordered"
+              startContent={<FaDownload />}
+              isLoading={isExporting}
+              loadingText="Exporting..."
+              onClick={handleExport}
+              spinnerColor="#64ae40"
+            >
+              Export
+            </LoadingButton>
           </div>
         </div>
 
@@ -683,7 +754,8 @@ export default function CollectorDashboard() {
         </div>
 
         <HerbsDataTable data={inventoryData} />
-      </div>
+        </div>
+      )}
     </RoleGuard>
   );
 }

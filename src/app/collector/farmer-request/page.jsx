@@ -45,12 +45,12 @@ const FarmerRequestsPage = () => {
   const requestsData = {
     incoming: [
       {
-        id: "FR-2024-001",
+        id: "FR-2025-001",
         farmer: "Ramesh Singh",
         herb: "Premium Turmeric",
         quantity: "150 kg",
         location: "Rajasthan, India", 
-        requestDate: "2024-08-25",
+        requestDate: "2025-08-25",
         qualityScore: 97,
         expectedPrice: "₹125/kg",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -58,12 +58,12 @@ const FarmerRequestsPage = () => {
         estimatedValue: "₹18,750"
       },
       {
-        id: "FR-2024-002", 
+        id: "FR-2025-002", 
         farmer: "Sunita Devi",
         herb: "Organic Ashwagandha",
         quantity: "75 kg",
         location: "Madhya Pradesh, India",
-        requestDate: "2024-08-24", 
+        requestDate: "2025-08-24", 
         qualityScore: 94,
         expectedPrice: "₹280/kg",
         avatar: "https://randomuser.me/api/portraits/women/45.jpg", 
@@ -71,12 +71,12 @@ const FarmerRequestsPage = () => {
         estimatedValue: "₹21,000"
       },
       {
-        id: "FR-2024-003",
+        id: "FR-2025-003",
         farmer: "Mohan Lal", 
         herb: "Wild Brahmi",
         quantity: "45 kg",
         location: "Kerala, India",
-        requestDate: "2024-08-23",
+        requestDate: "2025-08-23",
         qualityScore: 92,
         expectedPrice: "₹450/kg", 
         avatar: "https://randomuser.me/api/portraits/men/67.jpg",
@@ -86,13 +86,13 @@ const FarmerRequestsPage = () => {
     ],
     approved: [
       {
-        id: "FR-2024-004",
+        id: "FR-2025-004",
         farmer: "Lakshmi Reddy", 
         herb: "Organic Neem",
         quantity: "200 kg",
         location: "Andhra Pradesh, India",
-        approvedDate: "2024-08-20",
-        scheduledPickup: "2024-08-28",
+        approvedDate: "2025-08-20",
+        scheduledPickup: "2025-08-28",
         qualityScore: 96,
         agreedPrice: "₹85/kg",
         avatar: "https://randomuser.me/api/portraits/women/23.jpg",
@@ -102,13 +102,13 @@ const FarmerRequestsPage = () => {
     ],
     rescheduled: [
       {
-        id: "FR-2024-005",
+        id: "FR-2025-005",
         farmer: "Arjun Patel",
         herb: "Holy Basil (Tulsi)",
         quantity: "90 kg", 
         location: "Gujarat, India",
-        originalDate: "2024-08-22",
-        newDate: "2024-08-30",
+        originalDate: "2025-08-22",
+        newDate: "2025-08-30",
         rescheduleReason: "Heavy rains affecting road access",
         qualityScore: 89,
         agreedPrice: "₹160/kg",
@@ -118,12 +118,12 @@ const FarmerRequestsPage = () => {
     ],
     completed: [
       {
-        id: "FR-2024-006", 
+        id: "FR-2025-006", 
         farmer: "Kavita Sharma",
         herb: "Organic Turmeric",
         quantity: "120 kg",
         location: "Punjab, India", 
-        completedDate: "2024-08-18",
+        completedDate: "2025-08-18",
         finalPrice: "₹130/kg",
         qualityScore: 95,
         avatar: "https://randomuser.me/api/portraits/women/67.jpg",

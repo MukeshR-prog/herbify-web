@@ -18,6 +18,11 @@ import {
   Chip,
   Tooltip,
   Progress,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "@heroui/react";
 import {
   FaSearch,
@@ -30,6 +35,7 @@ import {
   FaTree,
   FaSpa,
 } from "react-icons/fa";
+import QRCode from "react-qr-code";
 
 // Map each herb type to an icon + color
 const herbIcons = {
@@ -145,7 +151,15 @@ const HerbsDataTable = ({ data }) => {
     const start = (page - 1) * rowsPerPage;
     return filteredData.slice(start, start + rowsPerPage);
   }, [filteredData, page]);
+  const [selectedBatch, setSelectedBatch] = useState(null);
 
+  const handleOpenModal = (item) => {
+    setSelectedBatch(item);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBatch(null);
+  };
   return (
     <Card className="shadow-md">
       <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -281,11 +295,16 @@ const HerbsDataTable = ({ data }) => {
                     </p>
                   </TableCell>
                   <TableCell>
-                    <Tooltip content="View QR">
-                      <Button isIconOnly size="sm" variant="light">
-                        <FaQrcode />
-                      </Button>
-                    </Tooltip>
+                         <Tooltip content="View QR">
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    variant="light"
+                    onPress={() => handleOpenModal(item)}
+                  >
+                    <FaQrcode />
+                  </Button>
+                </Tooltip>
                   </TableCell>
                   <TableCell>
                     <Button
@@ -321,6 +340,50 @@ const HerbsDataTable = ({ data }) => {
           />
         </div>
       </CardBody>
+      <Modal isOpen={!!selectedBatch} onOpenChange={handleCloseModal}>
+        <ModalContent>
+          <ModalHeader className="text-xl font-bold">
+            Batch Details
+          </ModalHeader>
+          <ModalBody>
+            {selectedBatch && (
+              <div className="space-y-3">
+                <p>
+                  <strong>Batch ID:</strong> {selectedBatch.batchId}
+                </p>
+                <p>
+                  <strong>Herb Type:</strong> {selectedBatch.herbType}
+                </p>
+                <p>
+                  <strong>Scientific Name:</strong> {selectedBatch.scientificName}
+                </p>
+                <p>
+                  <strong>Quantity:</strong> {selectedBatch.quantity} ({selectedBatch.bags} bags)
+                </p>
+                <p>
+                  <strong>Quality Score:</strong> {selectedBatch.qualityScore}%
+                </p>
+                <p>
+                  <strong>Expiry Date:</strong> {formatDate(selectedBatch.expiryDays)}
+                </p>
+
+                {/* QR Code */}
+                <div className="flex justify-center py-4">
+                  <QRCode
+                    value={`Batch ID: ${selectedBatch.batchId} | Herb: ${selectedBatch.herbType}`}
+                    size={128}
+                  />
+                </div>
+              </div>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Card>
   );
 };
