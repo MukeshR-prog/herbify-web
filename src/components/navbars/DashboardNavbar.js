@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X, Leaf, PackagePlus, Box, Truck } from "lucide-react";
 import useAuthStore from "@/store/useAuthStore";
 import { logout } from "@/lib/auth";
 import { ROLES } from "@/utils/roles";
@@ -27,7 +27,7 @@ const icons = {
   Dashboard: <LayoutDashboard size={18} />,
   "Consumer Dashboard": <LayoutDashboard size={18} />,
   "Farmer Dashboard": <LayoutDashboard size={18} />,
-  "Add Stock": <Package size={18} />,
+  "Stock Details": <Package size={18} />,
   "Existing Stock": <Package size={18} />,
   "Pending Requests": <Clock size={18} />,
   "ML Analysis": <LineChart size={18} />,
@@ -41,21 +41,28 @@ const icons = {
   Analytics: <BarChart3 size={18} />,
   Sustainability: <Leaf size={18} />,
   "Quality Tracking": <ShieldCheck size={18} />,
+  "Incoming Stock": <PackagePlus size={18} />,
+  "Under Processing": <Factory size={18} />,
+  "Products to Dispatch": <Box size={18} />,
+  "Products Dispatched": <Truck size={18} />,
 };
 
 const sidebarContent = {
-  [ROLES.COLLECTOR]: [
+ [ROLES.COLLECTOR]: [
     { label: "Dashboard", href: "/collector" },
-    { label: "Add Stock", href: "/collector/add-stock" },
-    { label: "Existing Stock", href: "/collector/existing-stock" },
+    { label: "Stock Details", href: "/collector/stock" },
     { label: "Pending Requests", href: "/collector/farmer-request" },
     { label: "ML Analysis", href: "/collector/ml-analysis" },
     { label: "Transactions", href: "/collector/transactions" },
   ],
   [ROLES.MANUFACTURER]: [
-    { label: "Consumer Dashboard", href: "/consumer" },
-    { label: "Shop", href: "/consumer/shop" },
-    { label: "Orders", href: "/consumer/orders" },
+    { label: "Dashboard", href: "/manufacturer" },
+    // { label: "Incoming Stock", href: "/manufacturer/incoming-stock" },
+    { label: "Existing Stock", href: "/manufacturer/existing-stock" },
+    { label: "Under Processing", href: "/manufacturer/processing" },
+    // { label: "Products to Dispatch", href: "/manufacturer/pending-dispatch" },
+    { label: "Products Dispatched", href: "/manufacturer/dispatched" },
+    // { label: "Orders", href: "/manufacturer/orders" },
   ],
   [ROLES.FARMER]: [
     { label: "Farmer Dashboard", href: "/farmer" },

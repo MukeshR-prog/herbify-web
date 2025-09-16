@@ -25,6 +25,8 @@ import {
   Truck,
   Leaf,
 } from "lucide-react";
+import { inventoryData } from "@/utils/inventoryData";
+import { useProcessingBatches } from "@/store/useProcessingBatches";
 
 // Mock data to simulate the state of the system
 const mockDashboardData = {
@@ -33,12 +35,6 @@ const mockDashboardData = {
   weeklyTransactions: { completed: 73, pending: 16 },
   spoilageAlerts: 3,
 };
-
-const stockChartData = [
-  { name: "Existing", value: 247 },
-  { name: "Processing", value: 32 },
-  { name: "Dispatched", value: 125 },
-];
 
 const COLORS = ["#00C49F", "#FFBB28", "#0088FE", "#FF8042"];
 
@@ -77,12 +73,43 @@ const ExpiryTag = ({ days }) => {
 
 export default function AnalyticsDashboard() {
   const [loading, setLoading] = useState(true);
+  const { processingBatches } = useProcessingBatches();
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }, []);
+
+  // Calculate dynamic stock chart data - herb types distribution
+  const stockChartData = React.useMemo(() => {
+    const herbTypeCounts = {};
+    
+    // Count each herb type
+    inventoryData.forEach(item => {
+      const herbType = item.herbType;
+      herbTypeCounts[herbType] = (herbTypeCounts[herbType] || 0) + 1;
+    });
+    
+    // Convert to chart data format
+    return Object.entries(herbTypeCounts).map(([name, value]) => ({
+      name,
+      value
+    }));
+  }, []);
+
+  // Calculate stock status data for bar chart
+  const stockStatusData = React.useMemo(() => {
+    const existingCount = inventoryData.length;
+    const processingCount = processingBatches.length;
+    const dispatchedCount = Math.max(0, 247 - existingCount - processingCount);
+
+    return [
+      { name: "Existing", value: existingCount },
+      { name: "Processing", value: processingCount },
+      { name: "Dispatched", value: dispatchedCount },
+    ];
+  }, [processingBatches]);
 
   if (loading) {
     return (
@@ -228,13 +255,13 @@ export default function AnalyticsDashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-          {/* Bar Chart for all Stock Categories */}
+          {/* Bar Chart for Stock Status */}
           <div className="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-4">
-            <h3 className="text-xl font-bold mb-4">Current Stock Breakdown</h3>
+            <h3 className="text-xl font-bold mb-4">Stock Status Overview</h3>
             <div className="w-full h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={stockChartData}
+                  data={stockStatusData}
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
                   <XAxis dataKey="name" stroke="#6b7280" />
@@ -253,9 +280,9 @@ export default function AnalyticsDashboard() {
             </div>
           </div>
 
-          {/* Pie Chart for all Stock Categories */}
+          {/* Pie Chart for Herb Types Distribution */}
           <div className="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-4">
-            <h3 className="text-xl font-bold mb-4">Stock Distribution</h3>
+            <h3 className="text-xl font-bold mb-4">Herb Types in Stock</h3>
             <div className="w-full h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
